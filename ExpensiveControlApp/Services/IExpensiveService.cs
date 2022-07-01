@@ -6,6 +6,12 @@ namespace ExpensiveControlApp.Services
     {
         Task Create(DTOs.CreateExpensiveDTO createExpensiveDTO);
 
+        Task Edit(DTOs.EditExpensiveDTO editExpensiveDTO);
+        
+        Expensive ListarPorId(int id);
+
         Task<List<Expensive>> FindBy(DateTime starDate, DateTime endDate);
+
+        Task<List<Expensive>> FindById(int id);
     }
 }

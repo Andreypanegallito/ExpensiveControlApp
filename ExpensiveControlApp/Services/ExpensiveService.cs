@@ -24,6 +24,33 @@ namespace ExpensiveControlApp.Services
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task Edit(DTOs.EditExpensiveDTO editExpensiveDTO)
+        {
+            await _dbContext.Expensives.AddAsync(new Expensive()
+            {
+                Description = editExpensiveDTO.Description,
+                Date = editExpensiveDTO.Date,
+                Value = editExpensiveDTO.Value
+            });
+
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public Expensive ListarPorId(int id)
+        {
+            return _dbContext.Expensives.FirstOrDefault(x => x.Id == id);
+        }
+
+        public async Task<List<Expensive>> FindById(int id )
+        {
+          
+
+            var items = await _dbContext.Expensives.Where(e => e.Id == id).AsNoTracking()
+                                                   .ToListAsync();
+
+            return items;
+        }
+
         public async Task<List<Expensive>> FindBy(DateTime starDate, DateTime endDate)
         {
             if( starDate > endDate)

@@ -65,6 +65,32 @@ namespace ExpensiveControlApp.Controllers
                 return View(createExpensiveDto);
             }
         }
+        
+        public async Task<IActionResult> Edit(int id)
+        {
+            var editExpensiveDto = new EditExpensiveDTO();
+            editExpensiveDto.Item.Id = id;
+            var editExpensiveDTO = _expensiveService.ListarPorId(id);
+            
+            return View(editExpensiveDTO);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(EditExpensiveDTO editExpensiveDto)
+        {
+            try
+            {
+                await _expensiveService.Edit(editExpensiveDto);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("CustomError", ex.Message);
+                return View(editExpensiveDto);
+            }
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

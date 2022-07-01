@@ -49,6 +49,7 @@
                     <th>Descrição</th>
                     <th>Data</th>
                     <th>Valor</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -61,13 +62,17 @@
                             <td>@item.Description</td>
                             <td>@item.Date.ToString("dd/MM/yyyy")</td>
                             <td>@item.Value</td>
+                            <td>
+                                <a asp-action="Edit" asp-controller="Expensive" asp-route-id="@item.Id" class="btn btn-primary">Editar</a>
+                                <a asp-action="Delete" asp-controller="Expensive" asp-route-id="@item.Id">Apagar</a>
+                            </td>
                         </tr>
                     }
                 }
                 else
                 {
                     <tr>
-                        <td colspan="4"> Nenhum registro encontrado</td>
+                        <td colspan="5"> Nenhum registro encontrado</td>
                     </tr>
                 }
             </tbody>
